@@ -9,11 +9,16 @@ import java.util.regex.Pattern;
 
 public class LineReader {
 
+	String newPath = "C:\\Users\\adamc\\eclipse-workspace\\invoice\\output\\newPdf.txt";
 	private String path;
 	BufferedReader reader;
 	PriceCalculator priceCalc = new PriceCalculator();
 	PriceArray arr = new PriceArray();
-	boolean start = false;
+	TxtOutput txtOut = new TxtOutput(newPath);
+	double result;
+	boolean start = true;
+	
+	
 	
 	public LineReader(String path) {
 		this.path = path;
@@ -28,42 +33,49 @@ public class LineReader {
 				
 				while ((line = reader.readLine()) != null) {
 					
+					if(line.contains("Názov") && line.contains("Počet")){
+						txtOut.write(line += " Naša cena");
+						txtOut.write("");
+						start = false;
+					}
+					
+					if(start) {
+					   txtOut.write(line);
+					}
 					
 					if(line.isBlank()) {
 						continue;
 					}
 						
-					if(line.contains("Názov") && line.contains("Počet")){
-						start = true;
-						continue;
-					}
 					
 					if(line.contains("Company")) {
-						break;
+						start = true;
+						txtOut.write(line);
 					}
+					compileLine(line); 
 					
-					if(start) {
-						Pattern pattern = Pattern.compile(" ks (\\d{1,3},\\d{3}) (\\d{1,3},\\d{3})");
-					    Matcher matcher = pattern.matcher(line);
-					    
-					    if(matcher.find()) {
-//					    	String piece = matcher.group(1);
-					    	String price = matcher.group(2);
-					    	
-					    	double result = priceCalc.calculate(price);
-						
-							arr.setCalculatedPrice(result);
-//					       	System.out.println(result);
-					       	
-							}
-//					    System.out.print(piece + prize);
-					}
 				}
-				
 				reader.close();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 			return(arr.getCalculatedPrice());
 		}
+	
+	private void compileLine(String line) throws IOException {
+		
+		Pattern pattern = Pattern.compile(" ks (\\d{1,3},\\d{3}) (\\d{1,3},\\d{3})");
+	    Matcher matcher = pattern.matcher(line);
+	    
+	    if(matcher.find()) {
+//	    	String piece = matcher.group(1);
+	    	String price = matcher.group(2);
+	    	
+	    	result = priceCalc.calculate(price);
+	    	
+	    	txtOut.write(line, result);
+	    	
+			arr.setCalculatedPrice(result);
+	    }
+	}
 }

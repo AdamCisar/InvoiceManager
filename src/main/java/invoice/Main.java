@@ -15,11 +15,11 @@ public class Main {
 	
 	public static void main(String[] args) throws IOException, SAXException, TikaException {
 	
-		pdfPath = "C:\\Users\\adamc\\eclipse-workspace\\invoice\\pdf\\XXX.pdf";
+		pdfPath = "C:\\Users\\adamc\\eclipse-workspace\\invoice\\pdf\\test.pdf";
 		readerPDF = new PdfReader(pdfPath);
 		String parsedText = readerPDF.parseText();
 		
-    	String txtPath = "C:\\Users\\adamc\\eclipse-workspace\\invoice\\output\\pdf.txt";
+    	String txtPath = "C:\\Users\\adamc\\eclipse-workspace\\invoice\\pdf\\pdf.txt";
     	txt = new TxtWriter(parsedText, txtPath);
     	
     	LineReader lr = new LineReader(txtPath);
