@@ -20,7 +20,7 @@ public class PdfReader {
 	PDFParser pdfparser;
 	BodyContentHandler contenthandler;
 	
-	PdfReader(String path) throws IOException, SAXException, TikaException{
+	 PdfReader(String path) throws IOException, SAXException, TikaException{
 		
 		contenthandler = new BodyContentHandler();
         f = new File(path);
@@ -37,7 +37,6 @@ public class PdfReader {
 		fstream = new FileInputStream(f);
 
 		pdfparser.parse(fstream, contenthandler, data, context);
-	
         return contenthandler.toString();
 	}
 	

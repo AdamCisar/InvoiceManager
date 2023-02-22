@@ -8,61 +8,62 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class LineReader {
-
-	String newPath = "C:\\Users\\adamc\\eclipse-workspace\\invoice\\output\\newPdf.txt";
+	
 	private String path;
-	BufferedReader reader;
-	PriceCalculator priceCalc = new PriceCalculator();
-	PriceArray arr = new PriceArray();
-	TxtOutput txtOut = new TxtOutput(newPath);
-	double result;
+	
+	static PriceCalculator priceCalc;
+	static PriceArray arr;
+	static TxtOutput txtOut;
+	static double result;
 	boolean start = true;
 	
-	
-	
-	public LineReader(String path) {
+	public LineReader(String path, String newPath) {
 		this.path = path;
+		priceCalc = new PriceCalculator();
+		arr = new PriceArray();
+		txtOut = new TxtOutput(newPath);
 	}
 
-
 	public LinkedList<Double> processLine() {
+		BufferedReader reader;
 		
-			try {
-				reader = new BufferedReader(new FileReader(path));
-				String line;
+		try {
+			reader = new BufferedReader(new FileReader(path));
+			String line;
+			
+			while ((line = reader.readLine()) != null) {
 				
-				while ((line = reader.readLine()) != null) {
-					
-					if(line.contains("Názov") && line.contains("Počet")){
-						txtOut.write(line += " Naša cena");
-						txtOut.write("");
-						start = false;
-					}
-					
-					if(start) {
-					   txtOut.write(line);
-					}
-					
-					if(line.isBlank()) {
-						continue;
-					}
-						
-					
-					if(line.contains("Company")) {
-						start = true;
-						txtOut.write(line);
-					}
-					compileLine(line); 
-					
+				if(line.contains("Názov") && line.contains("Počet")){
+					txtOut.write(line += " Naša cena");
+					txtOut.write("");
+					start = false;
 				}
-				reader.close();
-			} catch (IOException e) {
-				e.printStackTrace();
+				
+				if(start) {
+				   txtOut.write(line);
+				}
+				
+				if(line.isBlank()) {
+					continue;
+				}
+					
+				
+				if(line.contains("Company")) {
+					start = true;
+					txtOut.write(line);
+				}
+				compileLine(line); 
+				
 			}
-			return(arr.getCalculatedPrice());
+			reader.close();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
-	
-	private void compileLine(String line) throws IOException {
+		
+		return arr.getCalculatedPrice();
+	}
+
+	private static void compileLine(String line) throws IOException {
 		
 		Pattern pattern = Pattern.compile(" ks (\\d{1,3},\\d{3}) (\\d{1,3},\\d{3})");
 	    Matcher matcher = pattern.matcher(line);
@@ -78,4 +79,6 @@ public class LineReader {
 			arr.setCalculatedPrice(result);
 	    }
 	}
+
+	
 }
