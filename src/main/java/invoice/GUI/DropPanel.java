@@ -18,24 +18,21 @@ import org.apache.tika.exception.TikaException;
 import org.xml.sax.SAXException;
 
 import invoice.MainPdf;
-import invoice.Paths;
 
 public class DropPanel extends JPanel {
 	
 	JLabel label;
-	Paths path;
 	MainPdf pdf;
 	
 	DropPanel(){
 		
-		path = new Paths();
 		pdf = new MainPdf();
 		
 		this.setBounds(50,20,290,100);
 		this.setBackground(Color.gray);
 		this.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
 		
-		label = new JLabel("Vlož PDF súbor sem");
+		label = new JLabel("Vložte sem PDF súbor");
 		label.setFont(new Font("SansSerif", Font.BOLD, 10));
 		label.setForeground(Color.WHITE);
 		
@@ -54,7 +51,7 @@ public class DropPanel extends JPanel {
 		            List<File> files = (List<File>) transferable.getTransferData(DataFlavor.javaFileListFlavor);
 		            for (File file : files) {
 		                if (file.getName().toLowerCase().endsWith(".pdf")) {
-		                    // Do something with the PDF file here
+		                	
 		                	try {
 								pdf.processToPdf(file.getAbsolutePath().replaceAll("\\\\", "\\\\\\\\"));
 							} catch (SAXException e) {
@@ -64,7 +61,6 @@ public class DropPanel extends JPanel {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
-		                	System.out.println(file.getAbsolutePath().replaceAll("\\\\", "\\\\\\\\"));
 		                }
 		            }
 		        } catch (UnsupportedFlavorException | IOException e) {
