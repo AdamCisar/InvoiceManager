@@ -33,7 +33,7 @@ public class DropPanel extends JPanel {
 		this.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
 		
 		label = new JLabel("Vložte sem PDF súbor");
-		label.setFont(new Font("SansSerif", Font.BOLD, 10));
+		label.setFont(new Font("SansSerif", Font.BOLD, 11));
 		label.setForeground(Color.WHITE);
 		
 		this.add(label);
@@ -52,15 +52,7 @@ public class DropPanel extends JPanel {
 		            for (File file : files) {
 		                if (file.getName().toLowerCase().endsWith(".pdf")) {
 		                	
-		                	try {
-								pdf.processToPdf(file.getAbsolutePath().replaceAll("\\\\", "\\\\\\\\"));
-							} catch (SAXException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							} catch (TikaException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
+		                	pdf.setOldPdf(file.getAbsolutePath().replaceAll("\\\\", "\\\\\\\\"));
 		                }
 		            }
 		        } catch (UnsupportedFlavorException | IOException e) {

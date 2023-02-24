@@ -9,13 +9,14 @@ import org.xml.sax.SAXException;
 
 public class MainPdf {
 	 
-	 String newTxt = "C:\\Users\\adamc\\eclipse-workspace\\invoice\\output\\newPdf.txt";
-	 String oldTxt = "C:\\Users\\adamc\\eclipse-workspace\\invoice\\pdf\\pdf.txt";
+	 static final String newTxt = "C:\\Users\\adamc\\eclipse-workspace\\invoice\\output\\newPdf.txt";
+	 static final String oldTxt = "C:\\Users\\adamc\\eclipse-workspace\\invoice\\pdf\\pdf.txt";
+	 static String oldPdf;
 	 
 	 PdfReader readerPDF;
 	 TxtWriter txt;
 	 
-	 public void processToPdf(String oldPdf) throws IOException, SAXException, TikaException{
+	 public void convertToPdf() throws IOException, SAXException, TikaException{
 		
 		readerPDF = new PdfReader(oldPdf);
 		String parsedText = readerPDF.parseText();
@@ -42,5 +43,13 @@ public class MainPdf {
 		
 		f1.delete();
 		f2.delete();
+	}
+	
+	 public String getOldPdf() {
+		return oldPdf;
+	}
+
+	public void setOldPdf(String oldPdf) {
+		MainPdf.oldPdf = oldPdf;
 	}
 }
