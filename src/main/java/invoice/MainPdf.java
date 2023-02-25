@@ -8,9 +8,8 @@ import org.apache.tika.exception.TikaException;
 import org.xml.sax.SAXException;
 
 public class MainPdf {
-	 
-	 static final String newTxt = "C:\\Users\\adamc\\eclipse-workspace\\invoice\\output\\newPdf.txt";
-	 static final String oldTxt = "C:\\Users\\adamc\\eclipse-workspace\\invoice\\pdf\\pdf.txt";
+	
+	 static final String oldTxt = "C:\\Users\\adamc\\eclipse-workspace\\invoice\\txt\\pdf.txt";
 	 static String oldPdf;
 	 
 	 PdfReader readerPDF;
@@ -23,26 +22,21 @@ public class MainPdf {
     	
     	txt = new TxtWriter(parsedText, oldTxt);
     	
-    	LineReader lr = new LineReader(oldTxt, newTxt);
-    	LinkedList<Double> result = lr.processLine();
+    	LineReader lr = new LineReader(oldTxt);
+    	lr.processLine();
     	
-    	PdfCreator pdfCreator = new PdfCreator(newTxt);
-    	try {
-			pdfCreator.createPDF();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	deleteTxtFiles(oldTxt, newTxt);
+    	PdfWriter pdf = new PdfWriter(oldPdf);
+    	pdf.createPdf();
+    	
+    	deleteTxtFiles();
+    	setOldPdf("");
 	 }
 
-	private void deleteTxtFiles(String oldTxt, String newTxt) {
+	private void deleteTxtFiles() {
 		
 		File f1 = new File(oldTxt);
-		File f2 = new File(newTxt);
 		
 		f1.delete();
-		f2.delete();
 	}
 	
 	 public String getOldPdf() {

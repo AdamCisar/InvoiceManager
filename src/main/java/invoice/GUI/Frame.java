@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.text.DateFormat.Field;
 
 import javax.swing.JFrame;
 
@@ -62,6 +63,7 @@ public class Frame extends JFrame implements ActionListener {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
+			fields.setText("");
 		}
 	}
 }

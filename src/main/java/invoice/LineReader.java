@@ -13,15 +13,13 @@ public class LineReader {
 	
 	static PriceCalculator priceCalc;
 	static PriceArray arr;
-	static TxtOutput txtOut;
 	static double result;
 	boolean start = true;
 	
-	public LineReader(String path, String newPath) {
+	public LineReader(String path) {
 		this.path = path;
 		priceCalc = new PriceCalculator();
 		arr = new PriceArray();
-		txtOut = new TxtOutput(newPath);
 	}
 
 	public LinkedList<Double> processLine() {
@@ -33,25 +31,6 @@ public class LineReader {
 			
 			while ((line = reader.readLine()) != null) {
 				
-				if(line.contains("Názov") && line.contains("Počet")){
-					txtOut.write(line += " Naša cena");
-					txtOut.write("");
-					start = false;
-				}
-				
-				if(start) {
-				   txtOut.write(line);
-				}
-				
-				if(line.isBlank()) {
-					continue;
-				}
-					
-				
-				if(line.contains("Company")) {
-					start = true;
-					txtOut.write(line);
-				}
 				compileLine(line); 
 				
 			}
@@ -69,13 +48,9 @@ public class LineReader {
 	    Matcher matcher = pattern.matcher(line);
 	    
 	    if(matcher.find()) {
-//	    	String piece = matcher.group(1);
 	    	String price = matcher.group(2);
 	    	
 	    	result = priceCalc.calculate(price);
-	    	
-	    	txtOut.write(line, result);
-	    	
 			arr.setCalculatedPrice(result);
 	    }
 	}
