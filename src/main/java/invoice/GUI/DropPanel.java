@@ -17,15 +17,18 @@ import javax.swing.JPanel;
 import javax.swing.TransferHandler;
 
 import invoice.MainPdf;
+import invoice.PdfWriter;
 
 public class DropPanel extends JPanel {
 	
 	JLabel label;
 	MainPdf pdf;
+	PdfWriter pdfWriter;
 	
 	DropPanel(){
 		
 		pdf = new MainPdf();
+		pdfWriter = new PdfWriter();
 		
 		this.setBounds(50,20,290,100);
 		this.setBackground(Color.gray);
@@ -34,7 +37,6 @@ public class DropPanel extends JPanel {
 		label = new JLabel("Vložte sem PDF súbor");
 		label.setFont(new Font("SansSerif", Font.BOLD, 11));
 		label.setForeground(Color.WHITE);
-		
 		
 		this.add(label);
 		this.setTransferHandler(new TransferHandler() {
@@ -51,8 +53,11 @@ public class DropPanel extends JPanel {
 		            List<File> files = (List<File>) transferable.getTransferData(DataFlavor.javaFileListFlavor);
 		            for (File file : files) {
 		                if (file.getName().toLowerCase().endsWith(".pdf")) {
+		                	
 		                	changeToImage(file.getName());
+		                	PdfWriter.setFileName(file.getName().replace(".pdf", ""));
 		                	pdf.setOldPdf(file.getAbsolutePath().replaceAll("\\\\", "\\\\\\\\"));
+		                	
 		                }
 		            }
 		        } catch (UnsupportedFlavorException | IOException e) {
@@ -70,6 +75,14 @@ public class DropPanel extends JPanel {
 		ImageIcon scaledIm = new ImageIcon(im.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH));
 		label.setIcon(scaledIm);
 		label.setText(fileName);
+		revalidate();
+	}
+	
+	protected void changeToDefault() {
+		label.setIcon(null);
+		label.setText("Vložte sem PDF súbor");
+		label.setFont(new Font("SansSerif", Font.BOLD, 11));
+		label.setForeground(Color.WHITE);
 		revalidate();
 	}
 }

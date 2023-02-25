@@ -9,8 +9,9 @@ import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.PdfStamper;
 
 public class PdfWriter {
-
-	static String newPdf = "C:\\\\Users\\\\adamc\\\\Desktop\\\\newPdf.pdf";
+	
+	static String fileName;
+	static String newPdf = "C:\\\\Users\\\\adamc\\\\Desktop\\\\"+fileName+".pdf";
 	static String oldPdf;
 	static int i = 0;
 	PdfStamper pdfStamper;
@@ -19,6 +20,10 @@ public class PdfWriter {
 	
 	public PdfWriter(String oldPdf) {
 		PdfWriter.oldPdf = oldPdf;
+	}
+	
+	public PdfWriter() {
+		
 	}
 
 	void createPdf() {
@@ -69,9 +74,14 @@ public class PdfWriter {
 		File f = new File(newPdf);
 		while (f.exists()) {
 		    i++;
-		    newPdf = "C:\\\\Users\\\\adamc\\\\Desktop\\\\newPdf"+Integer.toString(i)+".pdf";
+		    newPdf = "C:\\\\Users\\\\adamc\\\\Desktop\\\\"+fileName+Integer.toString(i)+".pdf";
 		    f = new File(newPdf);
 		}
 		return false;
 	}
+	
+	public static void setFileName(String fileName) {
+		PdfWriter.fileName = fileName;
+	}
+
 }

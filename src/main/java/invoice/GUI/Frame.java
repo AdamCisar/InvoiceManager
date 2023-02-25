@@ -55,34 +55,41 @@ public class Frame extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource().equals(button)) {
 			
-			validateInput();
-			
 			calc.setInsertedNum(fields.getText());
 			
-			try {
-				pdf.convertToPdf();
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			} catch (SAXException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			} catch (TikaException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+			if(validateInput()) {
+				try {
+					pdf.convertToPdf();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (SAXException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (TikaException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+				JOptionPane.showMessageDialog(null, "PDF súbor bol úspešne vytvorený!","", JOptionPane.INFORMATION_MESSAGE);
 			}
+			dropPanel.changeToDefault();
 			fields.setText("");
 		}
 	}
 
-	private void validateInput() {
+	private boolean validateInput() {
 		
-		if(!String.valueOf(fields.getText()).matches("[0-9]+")){
+		if(!String.valueOf(fields.getText()).matches("[0-9,.]+")){
 			JOptionPane.showMessageDialog(null, "Povolené sú iba čísla!", "Chyba", JOptionPane.INFORMATION_MESSAGE);
+			return false;
 		}
 		
 		else if(String.valueOf(fields.getText()).isEmpty() || pdf.getOldPdf() == null) {
 			JOptionPane.showMessageDialog(null, "Nevložili ste číslo alebo súbor pdf!", "Chyba", JOptionPane.INFORMATION_MESSAGE);
-		}		
+			return false;
+		}
+		
+		return true;
 	}
 }
