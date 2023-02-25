@@ -2,6 +2,7 @@ package invoice.GUI;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
@@ -10,12 +11,10 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.TransferHandler;
-
-import org.apache.tika.exception.TikaException;
-import org.xml.sax.SAXException;
 
 import invoice.MainPdf;
 
@@ -36,6 +35,7 @@ public class DropPanel extends JPanel {
 		label.setFont(new Font("SansSerif", Font.BOLD, 11));
 		label.setForeground(Color.WHITE);
 		
+		
 		this.add(label);
 		this.setTransferHandler(new TransferHandler() {
 		    public boolean canImport(TransferSupport support) {
@@ -51,7 +51,7 @@ public class DropPanel extends JPanel {
 		            List<File> files = (List<File>) transferable.getTransferData(DataFlavor.javaFileListFlavor);
 		            for (File file : files) {
 		                if (file.getName().toLowerCase().endsWith(".pdf")) {
-		                	
+		                	changeToImage(file.getName());
 		                	pdf.setOldPdf(file.getAbsolutePath().replaceAll("\\\\", "\\\\\\\\"));
 		                }
 		            }
@@ -62,5 +62,14 @@ public class DropPanel extends JPanel {
 		        return true;
 		    }
 		});
+	}
+	
+	private void changeToImage(String fileName){
+		ImageIcon im = new ImageIcon("C:\\Users\\adamc\\eclipse-workspace\\invoice\\imageIcon\\image.png");
+
+		ImageIcon scaledIm = new ImageIcon(im.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH));
+		label.setIcon(scaledIm);
+		label.setText(fileName);
+		revalidate();
 	}
 }

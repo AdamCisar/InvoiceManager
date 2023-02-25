@@ -4,9 +4,11 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.text.DateFormat.Field;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.Popup;
+import javax.swing.PopupFactory;
 
 import org.apache.tika.exception.TikaException;
 import org.xml.sax.SAXException;
@@ -21,6 +23,8 @@ public class Frame extends JFrame implements ActionListener {
 	Fields fields;
 	PriceCalculator calc;
 	MainPdf pdf;
+	PopupFactory pf;
+	Popup p;
 	
 	public Frame(){
 		
@@ -29,6 +33,7 @@ public class Frame extends JFrame implements ActionListener {
 		dropPanel = new DropPanel();
 		fields = new Fields();
 		button = new Button();
+		pf = new PopupFactory();
 		
 		button.addActionListener(this);
 		
@@ -49,6 +54,9 @@ public class Frame extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource().equals(button)) {
+			
+			validateInput();
+			
 			calc.setInsertedNum(fields.getText());
 			
 			try {
@@ -65,5 +73,16 @@ public class Frame extends JFrame implements ActionListener {
 			}
 			fields.setText("");
 		}
+	}
+
+	private void validateInput() {
+		
+		if(!String.valueOf(fields.getText()).matches("[0-9]+")){
+			JOptionPane.showMessageDialog(null, "Povolené sú iba čísla!", "Chyba", JOptionPane.INFORMATION_MESSAGE);
+		}
+		
+		else if(String.valueOf(fields.getText()).isEmpty() || pdf.getOldPdf() == null) {
+			JOptionPane.showMessageDialog(null, "Nevložili ste číslo alebo súbor pdf!", "Chyba", JOptionPane.INFORMATION_MESSAGE);
+		}		
 	}
 }
