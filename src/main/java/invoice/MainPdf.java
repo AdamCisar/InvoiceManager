@@ -10,7 +10,7 @@ import org.xml.sax.SAXException;
 public class MainPdf {
 	
 	 static final String oldTxt = "C:\\Users\\adamc\\eclipse-workspace\\invoice\\txt\\pdf.txt";
-	 static String oldPdf;
+	 static String oldPdf = "";
 	 
 	 PdfReader readerPDF;
 	 TxtWriter txt;

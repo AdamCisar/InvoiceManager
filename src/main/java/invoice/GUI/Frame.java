@@ -74,19 +74,25 @@ public class Frame extends JFrame implements ActionListener {
 				JOptionPane.showMessageDialog(null, "PDF súbor bol úspešne vytvorený!","", JOptionPane.INFORMATION_MESSAGE);
 			}
 			dropPanel.changeToDefault();
+			pdf.setOldPdf("");
 			fields.setText("");
 		}
 	}
 
 	private boolean validateInput() {
 		
-		if(!String.valueOf(fields.getText()).matches("[0-9,.]+")){
-			JOptionPane.showMessageDialog(null, "Povolené sú iba čísla!", "Chyba", JOptionPane.INFORMATION_MESSAGE);
+		if(String.valueOf(fields.getText()).isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Nevložili ste číslo!", "Chyba", JOptionPane.INFORMATION_MESSAGE);
 			return false;
 		}
 		
-		else if(String.valueOf(fields.getText()).isEmpty() || pdf.getOldPdf() == null) {
-			JOptionPane.showMessageDialog(null, "Nevložili ste číslo alebo súbor pdf!", "Chyba", JOptionPane.INFORMATION_MESSAGE);
+		else if(pdf.getOldPdf() == "") {
+			JOptionPane.showMessageDialog(null, "Nevložili ste súbor pdf!", "Chyba", JOptionPane.INFORMATION_MESSAGE);
+			return false;
+		}
+		
+		else if(!String.valueOf(fields.getText()).matches("[0-9,.]+")){
+			JOptionPane.showMessageDialog(null, "Povolené sú iba kladné čísla!", "Chyba", JOptionPane.INFORMATION_MESSAGE);
 			return false;
 		}
 		
