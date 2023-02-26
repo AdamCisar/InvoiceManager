@@ -70,10 +70,10 @@ public class Frame extends JFrame implements ActionListener {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				
-				JOptionPane.showMessageDialog(null, "PDF súbor bol úspešne vytvorený!","", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(null, "PDF súbor bol úspešne vytvorený!","", JOptionPane.INFORMATION_MESSAGE);
 			}
 			dropPanel.changeToDefault();
+			pdf.deleteTxtFiles();
 			pdf.setOldPdf("");
 			fields.setText("");
 		}

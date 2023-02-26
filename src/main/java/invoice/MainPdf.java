@@ -32,7 +32,7 @@ public class MainPdf {
     	setOldPdf("");
 	 }
 
-	private void deleteTxtFiles() {
+	public void deleteTxtFiles() {
 		
 		File f1 = new File(oldTxt);
 		
@@ -43,7 +43,7 @@ public class MainPdf {
 		return oldPdf;
 	}
 
-	public void setOldPdf(String oldPdf) {
+	 public void setOldPdf(String oldPdf) {
 		MainPdf.oldPdf = oldPdf;
 	}
 }

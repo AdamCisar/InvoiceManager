@@ -7,6 +7,10 @@ import java.util.LinkedList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.swing.JOptionPane;
+
+import invoice.GUI.Frame;
+
 public class LineReader {
 	
 	private String path;
@@ -14,12 +18,13 @@ public class LineReader {
 	static PriceCalculator priceCalc;
 	static PriceArray arr;
 	static double result;
-	boolean start = true;
+	MainPdf pdf;
 	
 	public LineReader(String path) {
 		this.path = path;
 		priceCalc = new PriceCalculator();
 		arr = new PriceArray();
+		pdf = new MainPdf();
 	}
 
 	public LinkedList<Double> processLine() {
@@ -38,7 +43,6 @@ public class LineReader {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
 		return arr.getCalculatedPrice();
 	}
 

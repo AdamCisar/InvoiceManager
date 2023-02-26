@@ -54,8 +54,9 @@ public class DropPanel extends JPanel {
 		            for (File file : files) {
 		                if (file.getName().toLowerCase().endsWith(".pdf")) {
 		                	
-		                	changeToImage(file.getName());
 		                	PdfWriter.setFileName(file.getName().replace(".pdf", ""));
+		                	changeToImage(file.getName());
+		                	
 		                	pdf.setOldPdf(file.getAbsolutePath().replaceAll("\\\\", "\\\\\\\\"));
 		                	
 		                }
