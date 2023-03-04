@@ -1,33 +1,40 @@
 package invoice;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.swing.JOptionPane;
-
-import invoice.GUI.Frame;
+import org.apache.pdfbox.pdmodel.PDDocument;
 
 public class LineReader {
 	
 	private String path;
+	private String oldPdf;
 	
 	static PriceCalculator priceCalc;
 	static PriceArray arr;
 	static double result;
+	static LinkedList<LinkedList<String>> searchTextArr = new LinkedList<>();
+	static int numberOfPages = -1;
+
 	MainPdf pdf;
 	
-	public LineReader(String path) {
+	public LineReader(String path, String oldPdf) throws IOException {
 		this.path = path;
+		this.oldPdf = oldPdf;
 		priceCalc = new PriceCalculator();
 		arr = new PriceArray();
 		pdf = new MainPdf();
 	}
 
-	public LinkedList<Double> processLine() {
+	public LineReader() {
+	}
+
+	public void processLine() {
 		BufferedReader reader;
 		
 		try {
@@ -36,6 +43,11 @@ public class LineReader {
 			
 			while ((line = reader.readLine()) != null) {
 				
+				if(line.contains("Strana")) {
+					numberOfPages++;
+					PriceArray.calculatedPrice.add(new LinkedList<Double>());
+					searchTextArr.add(new LinkedList<String>());
+				}
 				compileLine(line); 
 				
 			}
@@ -43,21 +55,29 @@ public class LineReader {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return arr.getCalculatedPrice();
+		System.out.println(LineReader.searchTextArr.toString());
 	}
 
 	private static void compileLine(String line) throws IOException {
 		
-		Pattern pattern = Pattern.compile(" ks (\\d{1,3},\\d{3}) (\\d{1,3},\\d{3})");
+		Pattern pattern = Pattern.compile("\\w (\\d{0,4},\\d{0,4}) (\\d{0,4},\\d{0,4})");
 	    Matcher matcher = pattern.matcher(line);
 	    
 	    if(matcher.find()) {
 	    	String price = matcher.group(2);
-	    	
+
+	    	searchTextArr.get(numberOfPages).add(price);
 	    	result = priceCalc.calculate(price);
-			arr.setCalculatedPrice(result);
+			PriceArray.calculatedPrice.get(numberOfPages).add(result);
 	    }
 	}
-
 	
+	public static int getNumberOfPages() {
+		return numberOfPages;
+	}
+
+	public static void setNumberOfPages(int numberOfPages) {
+		LineReader.numberOfPages = numberOfPages;
+	}
+
 }

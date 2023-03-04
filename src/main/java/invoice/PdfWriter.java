@@ -2,6 +2,9 @@ package invoice;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Collections;
+import java.util.LinkedList;
 
 import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfContentByte;
@@ -16,15 +19,16 @@ public class PdfWriter {
 	static int i = 0;
 	PdfStamper pdfStamper;
 	PriceArray arrPr = new PriceArray();
-	int y = 629;
+	LineReader lineReader = new LineReader();
+	PDFTextPositionFinder finder;
+	static final int x = 568;
+	static LinkedList<LinkedList<Float>> yPositionArr = new LinkedList<>();
+	
 	
 	public PdfWriter(String oldPdf) {
 		PdfWriter.oldPdf = oldPdf;
 		newPdf = System.getProperty("user.home") + "\\Desktop\\" +fileName+".pdf";
-	}
-	
-	public PdfWriter() {
-		
+		finder = new PDFTextPositionFinder(oldPdf);
 	}
 
 	void createPdf() {
@@ -41,7 +45,8 @@ public class PdfWriter {
  
 		    //Get the number of pages in pdf.
 		    int pages = pdfReader.getNumberOfPages(); 
- 
+		    
+		    findYpositions(pages);
 		    //Iterate the pdf through pages.
 		    for(int i=1; i<=pages; i++) { 
 			//Contain the pdf data.
@@ -51,25 +56,47 @@ public class PdfWriter {
 				//Set text font and size.
 				pageContentByte.setFontAndSize(baseFont, 8);
 				
-				//y - 11
-				
-				for(int j=0; j<arrPr.getCalculatedPrice().size(); j++) {
-					pageContentByte.setTextMatrix(568,y);
-					pageContentByte.showText(String.valueOf(arrPr.getCalculatedPrice().get(j)));
-					y -= 11;
+				for(int j=0; j<LineReader.searchTextArr.get(i-1).size(); j++) {
+//					finder.setSearchText(LineReader.searchTextArr.get(i-1).get(j));
+//					finder.findTextPosition();
+					
+//					System.out.println(finder.getyPosition());
+					System.out.println(yPositionArr.get(i-1).size());
+					pageContentByte.setTextMatrix(x, yPositionArr.get(i-1).get(j));
+					pageContentByte.showText(String.valueOf(PriceArray.calculatedPrice.get(i-1).get(j)));
 				}
 				
 				pageContentByte.endText();
 		    }
  
 		    pdfStamper.close();	
-		    arrPr.getCalculatedPrice().clear();
+		    PriceArray.calculatedPrice.clear();
+		    LineReader.setNumberOfPages(-1);
+		    LineReader.searchTextArr.clear();
+		    yPositionArr.clear();
  
 		} catch (Exception e) {
 		    e.printStackTrace();
 		}
 	}
 	
+	private void findYpositions(int pages) throws IOException {
+		 
+		for(int i=1; i<=pages; i++) { 
+			
+			for(int j=0; j<LineReader.searchTextArr.get(i-1).size(); j++) {
+				finder.setSearchText(LineReader.searchTextArr.get(i-1).get(j));
+				finder.findTextPosition(i);
+			}
+			LinkedList<Float> arrY = new LinkedList<Float>(PDFTextPositionFinder.arrY);
+		    Collections.sort(arrY);
+		    Collections.reverse(arrY);
+		    yPositionArr.add(arrY);
+		}
+		
+		PDFTextPositionFinder.arrY.clear();
+		System.out.println(yPositionArr.toString());
+	}
 	private boolean fileExists() {
 		
 		File f = new File(newPdf);

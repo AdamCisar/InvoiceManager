@@ -4,16 +4,7 @@ import java.util.LinkedList;
 
 public class PriceArray {
 
-	static LinkedList<Double> calculatedPrice = new LinkedList<Double>();
+	static LinkedList<LinkedList<Double>> calculatedPrice = new LinkedList<>();
 
-	
-	protected LinkedList<Double> getCalculatedPrice() {
-		return calculatedPrice;
-	}
-
-	protected void setCalculatedPrice(double result) {
-		calculatedPrice.add(result);
-	} 
-	
 	
 }

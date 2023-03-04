@@ -22,14 +22,12 @@ public class MainPdf {
     	
     	txt = new TxtWriter(parsedText, oldTxt);
     	
-    	LineReader lr = new LineReader(oldTxt);
+    	LineReader lr = new LineReader(oldTxt, oldPdf);
     	lr.processLine();
     	
     	PdfWriter pdf = new PdfWriter(oldPdf);
     	pdf.createPdf();
     	
-    	deleteTxtFiles();
-    	setOldPdf("");
 	 }
 
 	public void deleteTxtFiles() {

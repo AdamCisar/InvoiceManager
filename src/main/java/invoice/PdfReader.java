@@ -35,7 +35,6 @@ public class PdfReader {
 	protected String parseText() throws IOException, SAXException, TikaException {
 		
 		fstream = new FileInputStream(f);
-
 		pdfparser.parse(fstream, contenthandler, data, context);
         return contenthandler.toString();
 	}

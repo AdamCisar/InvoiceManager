@@ -1,7 +1,6 @@
 package invoice;
 
 import java.io.IOException;
-import java.util.LinkedList;
 
 import org.apache.tika.exception.TikaException;
 import org.xml.sax.SAXException;

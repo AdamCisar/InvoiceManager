@@ -23,12 +23,10 @@ public class DropPanel extends JPanel {
 	
 	JLabel label;
 	MainPdf pdf;
-	PdfWriter pdfWriter;
 	
 	DropPanel(){
 		
 		pdf = new MainPdf();
-		pdfWriter = new PdfWriter();
 		
 		this.setBounds(50,20,290,100);
 		this.setBackground(Color.gray);
@@ -54,7 +52,7 @@ public class DropPanel extends JPanel {
 		            for (File file : files) {
 		                if (file.getName().toLowerCase().endsWith(".pdf")) {
 		                	
-		                	PdfWriter.setFileName(file.getName().replace(".pdf", ""));
+		                	PdfWriter.setFileName(file.getName().toLowerCase().replace(".pdf", ""));
 		                	changeToImage(file.getName());
 		                	
 		                	pdf.setOldPdf(file.getAbsolutePath().replaceAll("\\\\", "\\\\\\\\"));
