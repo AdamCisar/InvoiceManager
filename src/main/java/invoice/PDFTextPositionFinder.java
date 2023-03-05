@@ -38,8 +38,6 @@ public class PDFTextPositionFinder {
             }
         };
         // pages of document
-//        stripper.setStartPage(numberOfPage);
-//        stripper.setEndPage(numberOfPage);
         String text = stripper.getText(document);
         
         // Close the PDF document

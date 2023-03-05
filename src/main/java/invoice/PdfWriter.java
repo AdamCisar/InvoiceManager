@@ -57,18 +57,14 @@ public class PdfWriter {
 				pageContentByte.setFontAndSize(baseFont, 8);
 				
 				for(int j=0; j<LineReader.searchTextArr.get(i-1).size(); j++) {
-//					finder.setSearchText(LineReader.searchTextArr.get(i-1).get(j));
-//					finder.findTextPosition();
 					
-//					System.out.println(finder.getyPosition());
-					System.out.println(yPositionArr.get(i-1).size());
 					pageContentByte.setTextMatrix(x, yPositionArr.get(i-1).get(j));
 					pageContentByte.showText(String.valueOf(PriceArray.calculatedPrice.get(i-1).get(j)));
 				}
 				
 				pageContentByte.endText();
 		    }
- 
+		    
 		    pdfStamper.close();	
 		    PriceArray.calculatedPrice.clear();
 		    LineReader.setNumberOfPages(-1);
@@ -95,7 +91,6 @@ public class PdfWriter {
 		}
 		
 		PDFTextPositionFinder.arrY.clear();
-		System.out.println(yPositionArr.toString());
 	}
 	private boolean fileExists() {
 		

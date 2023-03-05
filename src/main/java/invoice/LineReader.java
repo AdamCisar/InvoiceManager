@@ -55,7 +55,6 @@ public class LineReader {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		System.out.println(LineReader.searchTextArr.toString());
 	}
 
 	private static void compileLine(String line) throws IOException {
@@ -64,9 +63,11 @@ public class LineReader {
 	    Matcher matcher = pattern.matcher(line);
 	    
 	    if(matcher.find()) {
+	    	
 	    	String price = matcher.group(2);
+	    	String ks = matcher.group(1);
 
-	    	searchTextArr.get(numberOfPages).add(price);
+	    	searchTextArr.get(numberOfPages).add(ks);
 	    	result = priceCalc.calculate(price);
 			PriceArray.calculatedPrice.get(numberOfPages).add(result);
 	    }
