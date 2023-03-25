@@ -27,7 +27,7 @@ public class PdfWriter {
 	
 	public PdfWriter(String oldPdf) {
 		PdfWriter.oldPdf = oldPdf;
-		newPdf = System.getProperty("user.home") + "\\Desktop\\" +fileName+".pdf";
+		newPdf = System.getProperty("user.home") + "\\Desktop\\" +fileName+"(prepočítaný)"+".pdf";
 		finder = new PDFTextPositionFinder(oldPdf);
 	}
 
@@ -97,7 +97,7 @@ public class PdfWriter {
 		File f = new File(newPdf);
 		while (f.exists()) {
 		    i++;
-		    newPdf = System.getProperty("user.home") + "\\Desktop\\" +fileName+Integer.toString(i)+".pdf";
+		    newPdf = System.getProperty("user.home") + "\\Desktop\\" +fileName+"(prepočítaný)"+Integer.toString(i)+".pdf";
 		    f = new File(newPdf);
 		}
 		return false;
