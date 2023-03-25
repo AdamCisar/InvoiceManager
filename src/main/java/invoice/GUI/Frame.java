@@ -25,6 +25,7 @@ public class Frame extends JFrame implements ActionListener {
 	MainPdf pdf;
 	PopupFactory pf;
 	Popup p;
+	TaxButtons taxButton;
 	
 	public Frame(){
 		
@@ -34,6 +35,7 @@ public class Frame extends JFrame implements ActionListener {
 		fields = new Fields();
 		button = new Button();
 		pf = new PopupFactory();
+		taxButton = new TaxButtons();
 		
 		button.addActionListener(this);
 		
@@ -49,6 +51,8 @@ public class Frame extends JFrame implements ActionListener {
 		this.add(fields);
 		this.add(dropPanel);
 		this.add(button);
+		this.add(TaxButtons.withTaxButton);
+		this.add(TaxButtons.withoutTaxButton);
 	}
 	
 	@Override
@@ -56,6 +60,7 @@ public class Frame extends JFrame implements ActionListener {
 		if(e.getSource().equals(button)) {
 			
 			calc.setInsertedNum(fields.getText());
+			TaxButtons.setSelectedWithTaxButton(TaxButtons.getWithoutTaxButton().isSelected());
 			
 			if(validateInput()) {
 				try {

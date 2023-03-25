@@ -12,6 +12,13 @@ public class PriceCalculator {
 		
 		return Math.round(result*100.0)/100.0;
 	}
+	
+	public double calculate(String sum, String piece)  {
+		
+		result = (parseStringToDouble(sum)/parseStringToDouble(piece)) * parseStringToDouble(insertedNum);
+		
+		return Math.round(result*100.0)/100.0;
+	}
 
 	private Double parseStringToDouble(String num) {
 		return Double.valueOf(num.replaceAll(",", "."));

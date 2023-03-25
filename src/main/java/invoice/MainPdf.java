@@ -9,7 +9,8 @@ import org.xml.sax.SAXException;
 
 public class MainPdf {
 	
-	 static final String oldTxt = "C:\\Users\\adamc\\eclipse-workspace\\invoice\\txt\\pdf.txt";
+	 static File currentDir = new File ("txt.txt");
+	 static final String oldTxt = currentDir.getAbsolutePath();
 	 static String oldPdf = "";
 	 
 	 PdfReader readerPDF;

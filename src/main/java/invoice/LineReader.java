@@ -1,14 +1,13 @@
 package invoice;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.pdfbox.pdmodel.PDDocument;
+import invoice.GUI.TaxButtons;
 
 public class LineReader {
 	
@@ -22,6 +21,7 @@ public class LineReader {
 	static int numberOfPages = -1;
 
 	MainPdf pdf;
+	TaxButtons taxButtons;
 	
 	public LineReader(String path, String oldPdf) throws IOException {
 		this.path = path;
@@ -29,6 +29,7 @@ public class LineReader {
 		priceCalc = new PriceCalculator();
 		arr = new PriceArray();
 		pdf = new MainPdf();
+		taxButtons= new TaxButtons();
 	}
 
 	public LineReader() {
@@ -59,17 +60,27 @@ public class LineReader {
 
 	private static void compileLine(String line) throws IOException {
 		
-		Pattern pattern = Pattern.compile("\\w (\\d{0,4},\\d{0,4}) (\\d{0,4},\\d{0,4})");
+		Pattern pattern = Pattern.compile("(m|ks|bal) (\\d{0,4},\\d{0,4}) (\\d{0,4},\\d{0,4}) (\\d{0,4}) (\\d{0,4},\\d{0,4}) (\\d{0,4},\\d{0,4})");
 	    Matcher matcher = pattern.matcher(line);
 	    
 	    if(matcher.find()) {
-	    	
-	    	String price = matcher.group(2);
-	    	String ks = matcher.group(1);
-
-	    	searchTextArr.get(numberOfPages).add(ks);
-	    	result = priceCalc.calculate(price);
-			PriceArray.calculatedPrice.get(numberOfPages).add(result);
+	    	System.out.println(TaxButtons.isSelectedWithoutTaxButton());
+				if(TaxButtons.isSelectedWithoutTaxButton()) {
+					String price = matcher.group(3);
+					
+					searchTextArr.get(numberOfPages).add(price);
+					result = priceCalc.calculate(price);
+					PriceArray.calculatedPrice.get(numberOfPages).add(result);
+				} else {
+					String price = matcher.group(3);
+					String sum = matcher.group(6);
+					String piece = matcher.group(2);
+					
+					searchTextArr.get(numberOfPages).add(price);
+					
+					result = priceCalc.calculate(sum,piece);
+					PriceArray.calculatedPrice.get(numberOfPages).add(result);
+			}
 	    }
 	}
 	
