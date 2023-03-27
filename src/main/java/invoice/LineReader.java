@@ -23,8 +23,8 @@ public class LineReader {
 	MainPdf pdf;
 	TaxButtons taxButtons;
 	
-	public LineReader(String path, String oldPdf) throws IOException {
-		this.path = path;
+	public LineReader(String string, String oldPdf) throws IOException {
+		this.path = string;
 		this.oldPdf = oldPdf;
 		priceCalc = new PriceCalculator();
 		arr = new PriceArray();

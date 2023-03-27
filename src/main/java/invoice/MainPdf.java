@@ -9,7 +9,7 @@ import org.xml.sax.SAXException;
 
 public class MainPdf {
 	
-	 final String oldTxt = getClass().getResource("txt").getFile()+"txt.txt";
+	 File oldTxt = new File("txt");
 	 static String oldPdf = "";
 	 
 	 PdfReader readerPDF;
@@ -20,9 +20,9 @@ public class MainPdf {
 		readerPDF = new PdfReader(oldPdf);
 		String parsedText = readerPDF.parseText();
     	
-    	txt = new TxtWriter(parsedText, oldTxt);
+    	txt = new TxtWriter(parsedText, oldTxt.getAbsolutePath());
     	
-    	LineReader lr = new LineReader(oldTxt, oldPdf);
+    	LineReader lr = new LineReader(oldTxt.getAbsolutePath(), oldPdf);
     	lr.processLine();
     	
     	PdfWriter pdf = new PdfWriter(oldPdf);
@@ -32,9 +32,7 @@ public class MainPdf {
 
 	public void deleteTxtFiles() {
 		
-		File f1 = new File(oldTxt);
-		
-		f1.delete();
+		oldTxt.delete();
 	}
 	
 	 public String getOldPdf() {
@@ -44,4 +42,5 @@ public class MainPdf {
 	 public void setOldPdf(String oldPdf) {
 		MainPdf.oldPdf = oldPdf;
 	}
+	 
 }
