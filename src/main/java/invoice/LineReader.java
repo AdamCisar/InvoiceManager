@@ -29,7 +29,7 @@ public class LineReader {
 		priceCalc = new PriceCalculator();
 		arr = new PriceArray();
 		pdf = new MainPdf();
-		taxButtons= new TaxButtons();
+		taxButtons = new TaxButtons();
 	}
 
 	public LineReader() {
@@ -64,14 +64,16 @@ public class LineReader {
 	    Matcher matcher = pattern.matcher(line);
 	    
 	    if(matcher.find()) {
-	    	System.out.println(TaxButtons.isSelectedWithoutTaxButton());
-				if(TaxButtons.isSelectedWithoutTaxButton()) {
+	    	
+				if(TaxButtons.getWithoutTaxButton().isSelected()) {
 					String price = matcher.group(3);
 					
 					searchTextArr.get(numberOfPages).add(price);
 					result = priceCalc.calculate(price);
 					PriceArray.calculatedPrice.get(numberOfPages).add(result);
-				} else {
+				} 
+				
+				else {
 					String price = matcher.group(3);
 					String sum = matcher.group(6);
 					String piece = matcher.group(2);

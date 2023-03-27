@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
+import javax.swing.ButtonModel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.Popup;
@@ -51,8 +52,8 @@ public class Frame extends JFrame implements ActionListener {
 		this.add(fields);
 		this.add(dropPanel);
 		this.add(button);
-		this.add(TaxButtons.withTaxButton);
-		this.add(TaxButtons.withoutTaxButton);
+		this.add(TaxButtons.getWithTaxButton());
+		this.add(TaxButtons.getWithoutTaxButton());
 	}
 	
 	@Override
@@ -60,7 +61,6 @@ public class Frame extends JFrame implements ActionListener {
 		if(e.getSource().equals(button)) {
 			
 			calc.setInsertedNum(fields.getText());
-			TaxButtons.setSelectedWithTaxButton(TaxButtons.getWithoutTaxButton().isSelected());
 			
 			if(validateInput()) {
 				try {
@@ -77,6 +77,7 @@ public class Frame extends JFrame implements ActionListener {
 				}
 					JOptionPane.showMessageDialog(null, "PDF súbor bol úspešne vytvorený!","", JOptionPane.INFORMATION_MESSAGE);
 			}
+			
 			dropPanel.changeToDefault();
 			pdf.deleteTxtFiles();
 			pdf.setOldPdf("");
@@ -98,6 +99,11 @@ public class Frame extends JFrame implements ActionListener {
 		
 		else if(!String.valueOf(fields.getText()).matches("[0-9,.]+")){
 			JOptionPane.showMessageDialog(null, "Povolené sú iba kladné čísla!", "Chyba", JOptionPane.INFORMATION_MESSAGE);
+			return false;
+		}
+		
+		else if(!TaxButtons.getWithTaxButton().isSelected() && !TaxButtons.getWithoutTaxButton().isSelected()) {
+			JOptionPane.showMessageDialog(null, "Vyberte jednú z možností \"s DPH/bez DPH\"!", "Chyba", JOptionPane.INFORMATION_MESSAGE);
 			return false;
 		}
 		

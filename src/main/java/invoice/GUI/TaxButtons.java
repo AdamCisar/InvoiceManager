@@ -9,19 +9,12 @@ import javax.swing.JRadioButton;
 
 public class TaxButtons {
 	
-	static JRadioButton withTaxButton;
-	static JRadioButton withoutTaxButton;
-	static boolean isSelectedWithoutTaxButton;
-	
+	static JRadioButton withTaxButton = new JRadioButton("s DPH"); 
+	static JRadioButton withoutTaxButton = new JRadioButton("bez DPH");
+	static ButtonGroup bg = new ButtonGroup();
+
 	public TaxButtons(){   
 		
-	withTaxButton=new JRadioButton("s DPH");    
-	withoutTaxButton=new JRadioButton("bez DPH");   
-	ButtonGroup bg = new ButtonGroup();
-	bg.add(withTaxButton);
-	bg.add(withoutTaxButton);
-	withTaxButton.setSelected(true);
-	
 	withTaxButton.setBounds(40,230,80,15);  
 	withTaxButton.setBackground(Color.darkGray);
 	withTaxButton.setForeground(Color.white);
@@ -34,34 +27,18 @@ public class TaxButtons {
 	withoutTaxButton.setFont(new Font("SansSerif", Font.BOLD, 11));
 	withoutTaxButton.setFocusable(false);
 	
+	bg.add(withTaxButton);
+	bg.add(withoutTaxButton);
 	
 	}
-
-	public static boolean isSelectedWithoutTaxButton() {
-		return isSelectedWithoutTaxButton;
-	}
-
-
-	public static void setSelectedWithTaxButton(boolean isSelectedWithoutTaxButton) {
-		TaxButtons.isSelectedWithoutTaxButton = isSelectedWithoutTaxButton;
-	}
-
+	
 	public static JRadioButton getWithTaxButton() {
 		return withTaxButton;
 	}
-
-
-	public static void setWithTaxButton(JRadioButton withTaxButton) {
-		TaxButtons.withTaxButton = withTaxButton;
-	}
-
 
 	public static JRadioButton getWithoutTaxButton() {
 		return withoutTaxButton;
 	}
 
 
-	public static void setWithoutTaxButton(JRadioButton withoutTaxButton) {
-		TaxButtons.withoutTaxButton = withoutTaxButton;
-	}
 }
