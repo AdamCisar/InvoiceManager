@@ -9,7 +9,7 @@ import org.xml.sax.SAXException;
 
 public class MainPdf {
 	
-	 static File currentDir = new File ("txt.txt");
+	 static File currentDir = new File ("txt\\txt.txt");
 	 static final String oldTxt = currentDir.getAbsolutePath();
 	 static String oldPdf = "";
 	 
