@@ -2,14 +2,13 @@ package invoice;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.LinkedList;
 
 import org.apache.tika.exception.TikaException;
 import org.xml.sax.SAXException;
 
 public class MainPdf {
 	
-	 File oldTxt = new File("txt");
+	 File oldTxt;
 	 static String oldPdf = "";
 	 
 	 PdfReader readerPDF;
@@ -19,7 +18,8 @@ public class MainPdf {
 		
 		readerPDF = new PdfReader(oldPdf);
 		String parsedText = readerPDF.parseText();
-    	
+		
+		oldTxt = new File(System.getProperty("user.home")+File.separator+"FileThatWorksForInvoiceApp.txt");
     	txt = new TxtWriter(parsedText, oldTxt.getAbsolutePath());
     	
     	LineReader lr = new LineReader(oldTxt.getAbsolutePath(), oldPdf);

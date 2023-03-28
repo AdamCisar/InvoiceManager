@@ -6,12 +6,10 @@ import java.awt.Image;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -71,7 +69,7 @@ public class DropPanel extends JPanel {
 	}
 	
 	private void changeToImage(String fileName) throws IOException{
-		ImageIcon im = new ImageIcon(getClass().getResource("\\imageIcon\\image.png"));
+		ImageIcon im = new ImageIcon(getClass().getResource("image.png"));
 		
 		ImageIcon scaledIm = new ImageIcon(im.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH));
 		label.setIcon(scaledIm);
