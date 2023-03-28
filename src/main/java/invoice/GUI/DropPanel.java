@@ -69,9 +69,10 @@ public class DropPanel extends JPanel {
 	}
 	
 	private void changeToImage(String fileName) throws IOException{
-		ImageIcon im = new ImageIcon(getClass().getResource("image.png"));
 		
+		ImageIcon im = new ImageIcon(getClass().getResource("/images/image.png"));
 		ImageIcon scaledIm = new ImageIcon(im.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH));
+		
 		label.setIcon(scaledIm);
 		label.setText(fileName);
 		revalidate();

@@ -19,7 +19,7 @@ public class MainPdf {
 		readerPDF = new PdfReader(oldPdf);
 		String parsedText = readerPDF.parseText();
 		
-		oldTxt = new File(System.getProperty("user.home")+File.separator+"FileThatWorksForInvoiceApp.txt");
+		oldTxt = new File(getClass().getResource("/textFiles/").getPath()+File.separator+"FileThatWorksForInvoiceApp.txt");
     	txt = new TxtWriter(parsedText, oldTxt.getAbsolutePath());
     	
     	LineReader lr = new LineReader(oldTxt.getAbsolutePath(), oldPdf);
