@@ -80,7 +80,6 @@ public class Frame extends JFrame implements ActionListener {
 			}
 			
 			dropPanel.changeToDefault();
-			pdf.deleteTxtFiles();
 			pdf.setOldPdf("");
 			fields.setText("");
 		}

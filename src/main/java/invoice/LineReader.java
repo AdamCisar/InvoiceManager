@@ -1,18 +1,18 @@
 package invoice;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.StringReader;
 import java.util.LinkedList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import invoice.GUI.ComboBox;
 import invoice.GUI.TaxButtons;
 
 public class LineReader {
 	
 	private String path;
-	private String oldPdf;
 	
 	static PriceCalculator priceCalc;
 	static PriceArray arr;
@@ -22,14 +22,15 @@ public class LineReader {
 
 	MainPdf pdf;
 	TaxButtons taxButtons;
+	ComboBox cb;
 	
-	public LineReader(String string, String oldPdf) throws IOException {
+	public LineReader(String string) throws IOException {
 		this.path = string;
-		this.oldPdf = oldPdf;
 		priceCalc = new PriceCalculator();
 		arr = new PriceArray();
 		pdf = new MainPdf();
 		taxButtons = new TaxButtons();
+		cb = new ComboBox();
 	}
 
 	public LineReader() {
@@ -39,7 +40,7 @@ public class LineReader {
 		BufferedReader reader;
 		
 		try {
-			reader = new BufferedReader(new FileReader(path));
+			reader = new BufferedReader(new StringReader(path));
 			String line;
 			
 			while ((line = reader.readLine()) != null) {
