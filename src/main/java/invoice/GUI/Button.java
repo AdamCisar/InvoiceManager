@@ -19,7 +19,7 @@ public class Button extends JButton {
 	Button(){
 		
 		this.setFocusable(false);
-		this.setBounds(250, 290, 100, 25);
+		this.setBounds(200, 280, 100, 25);
 		this.setText("Výpočítaj");
 		this.setFont(new Font("SansSerif", Font.BOLD, 11));
 		this.setForeground(Color.white);

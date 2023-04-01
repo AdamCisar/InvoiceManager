@@ -26,6 +26,7 @@ public class Frame extends JFrame implements ActionListener {
 	PopupFactory pf;
 	Popup p;
 	TaxButtons taxButton;
+	ComboBox cb;
 	
 	public Frame(){
 		
@@ -36,7 +37,7 @@ public class Frame extends JFrame implements ActionListener {
 		button = new Button();
 		pf = new PopupFactory();
 		taxButton = new TaxButtons();
-		
+		cb = new ComboBox();
 		button.addActionListener(this);
 		
 		this.setTitle("Invoice Manager");
@@ -53,6 +54,7 @@ public class Frame extends JFrame implements ActionListener {
 		this.add(button);
 		this.add(TaxButtons.getWithTaxButton());
 		this.add(TaxButtons.getWithoutTaxButton());
+		this.add(cb);
 	}
 	
 	@Override
