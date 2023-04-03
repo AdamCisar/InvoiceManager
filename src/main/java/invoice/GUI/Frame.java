@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.Popup;
 import javax.swing.PopupFactory;
+import javax.swing.UIManager;
 
 import org.apache.tika.exception.TikaException;
 import org.xml.sax.SAXException;
@@ -40,6 +41,11 @@ public class Frame extends JFrame implements ActionListener {
 		cb = new ComboBox();
 		button.addActionListener(this);
 		
+		try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 		this.setTitle("Invoice Manager");
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -117,4 +123,6 @@ public class Frame extends JFrame implements ActionListener {
 		
 		return true;
 	}
+	
+
 }
