@@ -19,14 +19,14 @@ public class TaxButtons {
 
 	public TaxButtons(){   
 		
-	withTaxButton.setBounds(40,260,80,15);  
+	withTaxButton.setBounds(50,260,80,15);  
 	withTaxButton.setBackground(Color.darkGray);
 	withTaxButton.setForeground(Color.white);
 	withTaxButton.setFont(new Font("SansSerif", Font.BOLD, 11));
 	withTaxButton.setFocusable(false);
 	withTaxButton.setIcon(new ColorfulRadioButtonIcon(new Color(154, 206, 235)));
 	
-	withoutTaxButton.setBounds(40,290,80,15);
+	withoutTaxButton.setBounds(50,290,80,15);
 	withoutTaxButton.setBackground(Color.darkGray);
 	withoutTaxButton.setForeground(Color.white);
 	withoutTaxButton.setFont(new Font("SansSerif", Font.BOLD, 11));

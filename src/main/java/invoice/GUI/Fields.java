@@ -27,7 +27,7 @@ public class Fields extends JTextField {
 		
 		this.setFont(new Font("SansSerif", Font.BOLD, 13));
 		this.setForeground(Color.black);
-		this.setBounds(200, 190, 100, 25);
+		this.setBounds(230, 190, 100, 25);
 		this.setHorizontalAlignment(JTextField.CENTER);
 	
 		

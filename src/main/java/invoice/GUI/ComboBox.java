@@ -14,7 +14,7 @@ public class ComboBox {
 	public ComboBox(){
 		
 		comboBox.setFont(new Font("SansSerif", Font.BOLD, 12));
-		comboBox.setBounds(40,190,130,25);
+		comboBox.setBounds(50,190,130,25);
 		comboBox.setUI(new BasicComboBoxUI() {
 		    protected JButton createArrowButton() {
 		        return new JButton() {

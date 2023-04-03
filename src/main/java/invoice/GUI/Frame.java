@@ -9,7 +9,6 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.Popup;
 import javax.swing.PopupFactory;
-import javax.swing.UIManager;
 
 import org.apache.tika.exception.TikaException;
 import org.xml.sax.SAXException;
