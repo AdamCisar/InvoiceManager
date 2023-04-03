@@ -16,13 +16,14 @@ public class LineReader {
 	
 	static PriceCalculator priceCalc;
 	static PriceArray arr;
-	static double result;
 	static LinkedList<LinkedList<String>> searchTextArr = new LinkedList<>();
 	static int numberOfPages = -1;
 
 	MainPdf pdf;
 	TaxButtons taxButtons;
 	ComboBox cb;
+	MplastInvoiceParser mplast;
+	ThermatDLInvoiceParser thermatDL;
 	
 	public LineReader(String string) throws IOException {
 		this.path = string;
@@ -31,6 +32,8 @@ public class LineReader {
 		pdf = new MainPdf();
 		taxButtons = new TaxButtons();
 		cb = new ComboBox();
+		mplast = new MplastInvoiceParser();
+		thermatDL = new ThermatDLInvoiceParser();
 	}
 
 	public LineReader() {
@@ -52,11 +55,11 @@ public class LineReader {
 				}
 				//mplast
 				if(ComboBox.getComboBox().getSelectedItem() == ComboBox.getBusinesses()[1]) {
-					compileMplast(line); 
+					mplast.parse(line, searchTextArr, numberOfPages); 
 				}
 				//Thermat dodaci list
 				if(ComboBox.getComboBox().getSelectedItem() == ComboBox.getBusinesses()[2]) {
-					compileThermatDL(line);
+					thermatDL.parse(line, searchTextArr, numberOfPages);
 				}
 				
 				
@@ -67,62 +70,6 @@ public class LineReader {
 			e.printStackTrace();
 		}
 	}
-
-	private static void compileMplast(String line) throws IOException {
-		
-		Pattern pattern = Pattern.compile("(m|ks|bal) (\\d{0,4},\\d{0,4}) (\\d{0,4},\\d{0,4}) (\\d{0,4}) (\\d{0,4},\\d{0,4}) (\\d{0,4},\\d{0,4})");
-	    Matcher matcher = pattern.matcher(line);
-	    
-	    if(matcher.find()) {
-	    	
-				if(TaxButtons.getWithoutTaxButton().isSelected()) {
-					String price = matcher.group(3);
-					
-					searchTextArr.get(numberOfPages).add(price);
-					result = priceCalc.calculate(price);
-					PriceArray.calculatedPrice.get(numberOfPages).add(result);
-				} 
-				
-				else {
-					String price = matcher.group(3);
-					String sum = matcher.group(6);
-					String piece = matcher.group(2);
-					
-					searchTextArr.get(numberOfPages).add(price);
-					
-					result = priceCalc.calculate(sum,piece);
-					PriceArray.calculatedPrice.get(numberOfPages).add(result);
-			}
-	    }
-	}
-	
-	private static void compileThermatDL(String line) throws IOException {
-			
-			Pattern pattern = Pattern.compile("(\\d{0,4}) (\\d{0,4}) (\\d{0,4},\\d{0,4}) (m|ks|bal) (\\d{0,4},\\d{0,4}) (\\d{0,4},\\d{0,4}) (\\d{0,4},\\d{0,4}) (\\d{0,4},\\d{0,4}) (\\d{0,4},\\d{0,2})");
-		    Matcher matcher = pattern.matcher(line);
-		    
-		    if(matcher.find()) {
-		    	
-					if(TaxButtons.getWithoutTaxButton().isSelected()) {
-						String price = matcher.group(5);
-						
-						searchTextArr.get(numberOfPages).add(price);
-						result = priceCalc.calculate(price);
-						PriceArray.calculatedPrice.get(numberOfPages).add(result);
-					} 
-					
-					else {
-						String price = matcher.group(5);
-						String sum = matcher.group(9);
-						String piece = matcher.group(3);
-						
-						searchTextArr.get(numberOfPages).add(price);
-						
-						result = priceCalc.calculate(sum,piece);
-						PriceArray.calculatedPrice.get(numberOfPages).add(result);
-				}
-		    }
-		}
 	
 	public static int getNumberOfPages() {
 		return numberOfPages;
