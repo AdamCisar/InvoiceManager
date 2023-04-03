@@ -48,7 +48,7 @@ package invoice.GUI;
 			setFont( component.getFont() );
 			setForeground( component.getForeground() );
 			setBorder( new EmptyBorder(component.getInsets()) );
-			setHorizontalAlignment(JLabel.LEADING);
+			setHorizontalAlignment(JLabel.CENTER);
 
 			component.addFocusListener( this );
 			document.addDocumentListener( this );

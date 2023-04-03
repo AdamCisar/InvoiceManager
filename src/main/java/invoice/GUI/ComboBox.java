@@ -24,7 +24,10 @@ public class ComboBox {
 		        };
 		    }
 		});
+		
+		
 	}
+	
 	
 	public static JComboBox<String> getComboBox() {
 		return comboBox;
@@ -33,4 +36,5 @@ public class ComboBox {
 	public static String[] getBusinesses() {
 		return businesses;
 	}
+
 }

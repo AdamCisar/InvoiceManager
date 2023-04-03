@@ -50,6 +50,7 @@ public class Frame extends JFrame implements ActionListener {
 		this.getContentPane().setBackground(Color.darkGray);
 		this.setVisible(true);
 		this.add(fields);
+		this.add(DropPanel.getlPanel());
 		this.add(dropPanel);
 		this.add(button);
 		this.add(TaxButtons.getWithTaxButton());
