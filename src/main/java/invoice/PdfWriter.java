@@ -11,24 +11,29 @@ import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.PdfStamper;
 
+import invoice.GUI.ComboBox;
+
 public class PdfWriter {
 	
 	static String fileName;
 	static String newPdf;
 	static String oldPdf;
 	static int i = 0;
+	
 	PdfStamper pdfStamper;
 	PriceArray arrPr = new PriceArray();
 	LineReader lineReader = new LineReader();
 	PDFTextPositionFinder finder;
-	static final int x = 568;
-	static LinkedList<LinkedList<Float>> yPositionArr = new LinkedList<>();
+	ComboBox cb = new ComboBox();
 	
+	static int x = 568;
+	static LinkedList<LinkedList<Float>> yPositionArr = new LinkedList<>();
 	
 	public PdfWriter(String oldPdf) {
 		PdfWriter.oldPdf = oldPdf;
-		newPdf = System.getProperty("user.home") + "\\Desktop\\" +fileName+"(prepočítaný)"+".pdf";
+		newPdf = System.getProperty("user.home") + "\\Desktop\\" +fileName+" (prepočítaný)"+".pdf";
 		finder = new PDFTextPositionFinder(oldPdf);
+		setX((String) ComboBox.getComboBox().getSelectedItem(), ComboBox.getBusinesses());
 	}
 
 	void createPdf() {
@@ -97,10 +102,22 @@ public class PdfWriter {
 		File f = new File(newPdf);
 		while (f.exists()) {
 		    i++;
-		    newPdf = System.getProperty("user.home") + "\\Desktop\\" +fileName+"(prepočítaný)"+Integer.toString(i)+".pdf";
+		    newPdf = System.getProperty("user.home") + "\\Desktop\\" +fileName+" (prepočítaný)"+Integer.toString(i)+".pdf";
 		    f = new File(newPdf);
 		}
 		return false;
+	}
+	
+	public static void setX(String selected, String[] business) {
+		
+		if(selected == business[1]) {
+			x = 568;
+		}
+		
+		if(selected == business[2]) {
+			x = 540;
+		}
+		
 	}
 	
 	public static void setFileName(String fileName) {

@@ -45,12 +45,21 @@ public class LineReader {
 			
 			while ((line = reader.readLine()) != null) {
 				
-				if(line.contains("Strana")) {
+				if(line.contains("Strana") || line.contains("Popis")) {
 					numberOfPages++;
 					PriceArray.calculatedPrice.add(new LinkedList<Double>());
 					searchTextArr.add(new LinkedList<String>());
 				}
-				compileLine(line); 
+				//mplast
+				if(ComboBox.getComboBox().getSelectedItem() == ComboBox.getBusinesses()[1]) {
+					compileMplast(line); 
+				}
+				//Thermat dodaci list
+				if(ComboBox.getComboBox().getSelectedItem() == ComboBox.getBusinesses()[2]) {
+					compileThermatDL(line);
+				}
+				
+				
 				
 			}
 			reader.close();
@@ -59,7 +68,7 @@ public class LineReader {
 		}
 	}
 
-	private static void compileLine(String line) throws IOException {
+	private static void compileMplast(String line) throws IOException {
 		
 		Pattern pattern = Pattern.compile("(m|ks|bal) (\\d{0,4},\\d{0,4}) (\\d{0,4},\\d{0,4}) (\\d{0,4}) (\\d{0,4},\\d{0,4}) (\\d{0,4},\\d{0,4})");
 	    Matcher matcher = pattern.matcher(line);
@@ -86,6 +95,34 @@ public class LineReader {
 			}
 	    }
 	}
+	
+	private static void compileThermatDL(String line) throws IOException {
+			
+			Pattern pattern = Pattern.compile("(\\d{0,4}) (\\d{0,4}) (\\d{0,4},\\d{0,4}) (m|ks|bal) (\\d{0,4},\\d{0,4}) (\\d{0,4},\\d{0,4}) (\\d{0,4},\\d{0,4}) (\\d{0,4},\\d{0,4}) (\\d{0,4},\\d{0,2})");
+		    Matcher matcher = pattern.matcher(line);
+		    
+		    if(matcher.find()) {
+		    	
+					if(TaxButtons.getWithoutTaxButton().isSelected()) {
+						String price = matcher.group(5);
+						
+						searchTextArr.get(numberOfPages).add(price);
+						result = priceCalc.calculate(price);
+						PriceArray.calculatedPrice.get(numberOfPages).add(result);
+					} 
+					
+					else {
+						String price = matcher.group(5);
+						String sum = matcher.group(9);
+						String piece = matcher.group(3);
+						
+						searchTextArr.get(numberOfPages).add(price);
+						
+						result = priceCalc.calculate(sum,piece);
+						PriceArray.calculatedPrice.get(numberOfPages).add(result);
+				}
+		    }
+		}
 	
 	public static int getNumberOfPages() {
 		return numberOfPages;

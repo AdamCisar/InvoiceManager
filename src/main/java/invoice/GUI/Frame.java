@@ -54,7 +54,7 @@ public class Frame extends JFrame implements ActionListener {
 		this.add(button);
 		this.add(TaxButtons.getWithTaxButton());
 		this.add(TaxButtons.getWithoutTaxButton());
-		this.add(cb);
+		this.add(ComboBox.getComboBox());
 	}
 	
 	@Override
@@ -79,6 +79,8 @@ public class Frame extends JFrame implements ActionListener {
 					JOptionPane.showMessageDialog(null, "PDF súbor bol úspešne vytvorený!","", JOptionPane.INFORMATION_MESSAGE);
 			}
 			
+			ComboBox.getComboBox().setSelectedIndex(0);
+			TaxButtons.bg.clearSelection();
 			dropPanel.changeToDefault();
 			pdf.setOldPdf("");
 			fields.setText("");
@@ -104,6 +106,11 @@ public class Frame extends JFrame implements ActionListener {
 		
 		else if(!TaxButtons.getWithTaxButton().isSelected() && !TaxButtons.getWithoutTaxButton().isSelected()) {
 			JOptionPane.showMessageDialog(null, "Vyberte jednú z možností \"s DPH/bez DPH\"!", "Chyba", JOptionPane.INFORMATION_MESSAGE);
+			return false;
+		}
+		
+		else if(ComboBox.getComboBox().getSelectedItem() == "-Výber-") {
+			JOptionPane.showMessageDialog(null, "Nevybrali ste žiadnu z možností faktúr!", "Chyba", JOptionPane.INFORMATION_MESSAGE);
 			return false;
 		}
 		
