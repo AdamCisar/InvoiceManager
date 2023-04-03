@@ -4,10 +4,12 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Insets;
+import java.awt.RenderingHints;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
@@ -118,7 +120,10 @@ public class DropPanel extends JPanel {
 
         @Override
         public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
-            g.drawRoundRect(x,y,width-1,height-1,radius,radius);
+        	Graphics2D g2d = (Graphics2D) g.create();
+            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            g2d.setColor(new Color(154, 206, 235));
+        	g2d.drawRoundRect(x,y,width-1,height-1,radius,radius);
         }
     }
 	

@@ -41,11 +41,6 @@ public class Frame extends JFrame implements ActionListener {
 		cb = new ComboBox();
 		button.addActionListener(this);
 		
-		try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 		this.setTitle("Invoice Manager");
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
