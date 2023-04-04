@@ -12,6 +12,7 @@ import java.awt.geom.Rectangle2D;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.UIManager;
 
 public class Button extends JButton {
 	
@@ -22,7 +23,6 @@ public class Button extends JButton {
 		this.setText("Výpočítaj");
 		this.setFont(new Font("SansSerif", Font.BOLD, 11));
 		this.setForeground(Color.white);
-		this.setBackground(Color.gray);
 		this.setBorder(BorderFactory.createEtchedBorder());
 		
 		this.setOpaque(false);
@@ -33,14 +33,12 @@ public class Button extends JButton {
 			
 			@Override
 			public void mousePressed(MouseEvent e) {
-				setBackground(Color.black);
-				setBorder(BorderFactory.createLoweredBevelBorder());
+//				setBackground(Color.black);
 			}
 			
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				setBackground(Color.gray);
-				setBorder(BorderFactory.createEtchedBorder());
+				setBackground(UIManager.getColor("Button.background"));;
 			}
 			
 			@Override
@@ -50,7 +48,7 @@ public class Button extends JButton {
 			
 			@Override
 			public void mouseExited(MouseEvent e) {
-				setBackground(Color.gray);
+				setBackground(UIManager.getColor("Button.background"));;
 			}
 		});
 	}

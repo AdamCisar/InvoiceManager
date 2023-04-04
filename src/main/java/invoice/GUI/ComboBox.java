@@ -1,5 +1,6 @@
 package invoice.GUI;
 
+import java.awt.Color;
 import java.awt.Font;
 
 import javax.swing.JButton;
@@ -15,6 +16,7 @@ public class ComboBox {
 		
 		comboBox.setFont(new Font("SansSerif", Font.BOLD, 12));
 		comboBox.setBounds(50,190,130,25);
+		comboBox.setForeground(new Color(154, 206, 235));
 		comboBox.setUI(new BasicComboBoxUI() {
 		    protected JButton createArrowButton() {
 		        return new JButton() {
