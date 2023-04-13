@@ -1,14 +1,15 @@
 package invoice.GUI;
 
 import java.awt.Color;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.Popup;
-import javax.swing.PopupFactory;
 
 import org.apache.tika.exception.TikaException;
 import org.xml.sax.SAXException;
@@ -23,7 +24,6 @@ public class Frame extends JFrame implements ActionListener {
 	Fields fields;
 	PriceCalculator calc;
 	MainPdf pdf;
-	PopupFactory pf;
 	Popup p;
 	TaxButtons taxButton;
 	ComboBox cb;
@@ -35,11 +35,12 @@ public class Frame extends JFrame implements ActionListener {
 		dropPanel = new DropPanel();
 		fields = new Fields();
 		button = new Button();
-		pf = new PopupFactory();
 		taxButton = new TaxButtons();
 		cb = new ComboBox();
 		button.addActionListener(this);
 		
+		Image icon = new ImageIcon(getClass().getResource("/images/icon.png")).getImage();
+        this.setIconImage(icon);
 		this.setTitle("Invoice Manager");
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -2,13 +2,9 @@ package invoice.GUI;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Graphics;
 
 import javax.swing.ButtonGroup;
-import javax.swing.JComponent;
 import javax.swing.JRadioButton;
-import javax.swing.UIManager;
-import javax.swing.plaf.basic.BasicRadioButtonUI;
 
 
 public class TaxButtons {
