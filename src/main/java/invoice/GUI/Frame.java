@@ -2,11 +2,13 @@ package invoice.GUI;
 
 import java.awt.Color;
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
 import javax.swing.ImageIcon;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.Popup;
@@ -27,6 +29,8 @@ public class Frame extends JFrame implements ActionListener {
 	Popup p;
 	TaxButtons taxButton;
 	ComboBox cb;
+	JOptionPane pane;
+	JDialog d;
 	
 	public Frame(){
 		
@@ -38,6 +42,9 @@ public class Frame extends JFrame implements ActionListener {
 		taxButton = new TaxButtons();
 		cb = new ComboBox();
 		button.addActionListener(this);
+		pane = new JOptionPane();
+		d = pane.createDialog((JFrame)null, "Chyba");
+		
 		
 		Image icon = new ImageIcon(getClass().getResource("/images/icon.png")).getImage();
         this.setIconImage(icon);
@@ -78,7 +85,8 @@ public class Frame extends JFrame implements ActionListener {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-					JOptionPane.showMessageDialog(null, "PDF súbor bol úspešne vytvorený!","", JOptionPane.INFORMATION_MESSAGE);
+				
+				showJOptionPane("PDF súbor bol úspešne vytvorený!", "");
 			}
 			
 			ComboBox.getComboBox().setSelectedIndex(0);
@@ -92,32 +100,57 @@ public class Frame extends JFrame implements ActionListener {
 	private boolean validateInput() {
 		
 		if(String.valueOf(fields.getText()).isEmpty()) {
-			JOptionPane.showMessageDialog(null, "Nevložili ste číslo!", "Chyba", JOptionPane.INFORMATION_MESSAGE);
+			showJOptionPane("Nevložili ste číslo!");
 			return false;
 		}
 		
 		else if(pdf.getOldPdf() == "") {
-			JOptionPane.showMessageDialog(null, "Nevložili ste súbor pdf!", "Chyba", JOptionPane.INFORMATION_MESSAGE);
+			showJOptionPane("Nevložili ste súbor pdf!");
 			return false;
 		}
 		
 		else if(!String.valueOf(fields.getText()).matches("[0-9,.]+")){
-			JOptionPane.showMessageDialog(null, "Povolené sú iba kladné čísla!", "Chyba", JOptionPane.INFORMATION_MESSAGE);
+			showJOptionPane("Povolené sú iba kladné čísla!");
 			return false;
 		}
 		
 		else if(!TaxButtons.getWithTaxButton().isSelected() && !TaxButtons.getWithoutTaxButton().isSelected()) {
-			JOptionPane.showMessageDialog(null, "Vyberte jednú z možností \"s DPH/bez DPH\"!", "Chyba", JOptionPane.INFORMATION_MESSAGE);
+			showJOptionPane("Vyberte jednú z možností \"s DPH/bez DPH\"!");
 			return false;
 		}
 		
 		else if(ComboBox.getComboBox().getSelectedItem() == "-Výber-") {
-			JOptionPane.showMessageDialog(null, "Nevybrali ste žiadnu z možností faktúr!", "Chyba", JOptionPane.INFORMATION_MESSAGE);
+			showJOptionPane("Nevybrali ste žiadnu z možností faktúr!");
 			return false;
 		}
 		
 		return true;
 	}
+	
+	private void showJOptionPane(String message) {
+		
+		int x = this.getX()+((this.getSize().width-d.getSize().width)/2);
+		int y = this.getY()+((this.getSize().height-d.getSize().height)/2);
+		Point p = new Point(x, y);
+		d.setLocation(p);
+		System.out.println(d.getSize().width);
+		System.out.println(d.getSize().height);
+		pane.setMessage(message);
+		d.setVisible(true);
+	}
+	
+	private void showJOptionPane(String message, String title) {
+			
+			int x = this.getX()+((this.getSize().width-d.getSize().width)/2);
+			int y = this.getY()+((this.getSize().height-d.getSize().height)/2);
+			Point p = new Point(x, y);
+			d.setTitle(title);
+			d.setLocation(p);
+			System.out.println(d.getSize().width);
+			System.out.println(d.getSize().height);
+			pane.setMessage(message);
+			d.setVisible(true);
+		}
 	
 
 }
