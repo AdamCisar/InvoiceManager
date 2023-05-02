@@ -3,5 +3,7 @@
 Invoice Manager is a custom application which automates process of price calculation. 
 
 
-<img width="957" alt="inputs" src="https://user-images.githubusercontent.com/113993988/235678245-95b2ea0e-fb40-4f9f-9a71-0e27d103fd00.png">
-<img width="957" alt="im" src="https://user-images.githubusercontent.com/113993988/235678785-8e07bd44-99cc-46b5-8cd2-a56212e21ef4.png">
+
+<img width="960" alt="clear" src="https://user-images.githubusercontent.com/113993988/235686432-cf07b68c-bfde-4c6c-804e-bc8208ee391f.png">
+<img width="957" alt="examplesOfOutputs" src="https://user-images.githubusercontent.com/113993988/235686438-327b95c8-06bf-405c-acc9-6af827bb07fb.png">
+<img width="960" alt="im" src="https://user-images.githubusercontent.com/113993988/235686441-45184a52-3cb0-46f3-83d6-14c530af528a.png">
