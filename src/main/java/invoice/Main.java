@@ -16,6 +16,5 @@ public class Main {
 	public static void main(String[] args) throws IOException, SAXException, TikaException {
 		FlatDarkLaf.setup();
 		new Frame();
-		
 	}
 }

@@ -16,8 +16,8 @@ public class MainPdf {
 		readerPDF = new PdfReader(oldPdf);
 		String parsedText = readerPDF.parseText();
 		
-    	LineReader lr = new LineReader(parsedText);
-    	lr.processLine();
+    	LineReader lr = new LineReader();
+    	lr.processLine(parsedText);
     	
     	PdfWriter pdf = new PdfWriter(oldPdf);
     	pdf.createPdf();

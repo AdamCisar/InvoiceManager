@@ -2,10 +2,19 @@ package invoice;
 
 public class PriceCalculator {
 	
-	static String insertedNum;
-
+	private static PriceCalculator instance;
+	String insertedNum;
 	double result;
 	
+	private PriceCalculator() {}
+
+    public static PriceCalculator getInstance() {
+        if (instance == null) {
+            instance = new PriceCalculator();
+        }
+        return instance;
+    }
+    
 	public double calculate(String price)  {
 		
 		result = parseStringToDouble(price) * parseStringToDouble(insertedNum);
@@ -25,7 +34,7 @@ public class PriceCalculator {
 	}
 	
 	public void setInsertedNum(String insertedNum) {
-		PriceCalculator.insertedNum = insertedNum;
+		this.insertedNum = insertedNum;
 	}
 	
 	public String getInsertedNum() {

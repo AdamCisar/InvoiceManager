@@ -21,7 +21,7 @@ public class PdfWriter {
 	static int i = 0;
 	
 	PdfStamper pdfStamper;
-	PriceArray arrPr = new PriceArray();
+	PriceArray arr = PriceArray.getInstance();
 	LineReader lineReader = new LineReader();
 	PDFTextPositionFinder finder;
 	ComboBox cb = new ComboBox();
@@ -64,14 +64,14 @@ public class PdfWriter {
 				for(int j=0; j<LineReader.searchTextArr.get(i-1).size(); j++) {
 					
 					pageContentByte.setTextMatrix(x, yPositionArr.get(i-1).get(j));
-					pageContentByte.showText(String.valueOf(PriceArray.calculatedPrice.get(i-1).get(j)));
+					pageContentByte.showText(String.valueOf(arr.calculatedPrice.get(i-1).get(j)));
 				}
 				
 				pageContentByte.endText();
 		    }
 		    
 		    pdfStamper.close();	
-		    PriceArray.calculatedPrice.clear();
+		    arr.calculatedPrice.clear();
 		    LineReader.setNumberOfPages(-1);
 		    LineReader.searchTextArr.clear();
 		    yPositionArr.clear();

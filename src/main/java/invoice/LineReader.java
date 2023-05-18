@@ -4,15 +4,14 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.LinkedList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import invoice.GUI.ComboBox;
 import invoice.GUI.TaxButtons;
+import invoice.parser.Parser;
+import invoice.parser.impl.ParserFactory;
 
 public class LineReader {
 	
-	private String path;
 	
 	static PriceCalculator priceCalc;
 	static PriceArray arr;
@@ -22,47 +21,36 @@ public class LineReader {
 	MainPdf pdf;
 	TaxButtons taxButtons;
 	ComboBox cb;
-	MplastInvoiceParser mplast;
-	ThermatDLInvoiceParser thermatDL;
+	ParserFactory parserFactory;
+	Parser parser;
 	
-	public LineReader(String string) throws IOException {
-		this.path = string;
-		priceCalc = new PriceCalculator();
-		arr = new PriceArray();
+	public LineReader() {
+		priceCalc = PriceCalculator.getInstance();
+		arr = PriceArray.getInstance();
 		pdf = new MainPdf();
 		taxButtons = new TaxButtons();
 		cb = new ComboBox();
-		mplast = new MplastInvoiceParser();
-		thermatDL = new ThermatDLInvoiceParser();
+		parserFactory = new ParserFactory();
+		parser = parserFactory.createInvoiceParser();
 	}
 
-	public LineReader() {
-	}
 
-	public void processLine() {
+	public void processLine(String string) {
 		BufferedReader reader;
 		
 		try {
-			reader = new BufferedReader(new StringReader(path));
+			reader = new BufferedReader(new StringReader(string));
 			String line;
 			
 			while ((line = reader.readLine()) != null) {
 				
 				if(line.contains("Strana") || line.contains("Popis")) {
 					numberOfPages++;
-					PriceArray.calculatedPrice.add(new LinkedList<Double>());
+					arr.calculatedPrice.add(new LinkedList<Double>());
 					searchTextArr.add(new LinkedList<String>());
 				}
-				//mplast
-				if(ComboBox.getComboBox().getSelectedItem() == ComboBox.getBusinesses()[1]) {
-					mplast.parse(line, searchTextArr, numberOfPages); 
-				}
-				//Thermat dodaci list
-				if(ComboBox.getComboBox().getSelectedItem() == ComboBox.getBusinesses()[2]) {
-					thermatDL.parse(line, searchTextArr, numberOfPages);
-				}
 				
-				
+				parser.parse(line, searchTextArr, numberOfPages); 
 				
 			}
 			reader.close();

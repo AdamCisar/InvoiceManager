@@ -1,24 +1,28 @@
-package invoice;
+package invoice.parser.impl;
 
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import invoice.PriceArray;
+import invoice.PriceCalculator;
 import invoice.GUI.TaxButtons;
+import invoice.parser.Parser;
 
-public class ThermatDLInvoiceParser {
+public class ThermatDLInvoiceParser implements Parser {
 	
 	static double result;
 	static PriceCalculator priceCalc;
 	static PriceArray arr;
 	
 	ThermatDLInvoiceParser(){
-		priceCalc = new PriceCalculator();
-		arr = new PriceArray();
+		priceCalc = PriceCalculator.getInstance();
+		arr = PriceArray.getInstance();
 	}
 	
-	protected void parse(String line, LinkedList<LinkedList<String>> searchTextArr, int numberOfPages) throws IOException {
+	@Override
+	public void parse(String line, LinkedList<LinkedList<String>> searchTextArr, int numberOfPages) throws IOException {
 		
 		Pattern pattern = Pattern.compile("(\\d{0,4}) (\\d{0,4}) (\\d{0,4},\\d{0,4}) (m|ks|bal) (\\d{0,4},\\d{0,4}) (\\d{0,4},\\d{0,4}) (\\d{0,4},\\d{0,4}) (\\d{0,4},\\d{0,4}) (\\d{0,4},\\d{0,2})");
 	    Matcher matcher = pattern.matcher(line);
@@ -30,7 +34,7 @@ public class ThermatDLInvoiceParser {
 					
 					searchTextArr.get(numberOfPages).add(price);
 					result = priceCalc.calculate(price);
-					PriceArray.calculatedPrice.get(numberOfPages).add(result);
+					arr.calculatedPrice.get(numberOfPages).add(result);
 				} 
 				
 				else {
@@ -41,7 +45,7 @@ public class ThermatDLInvoiceParser {
 					searchTextArr.get(numberOfPages).add(price);
 					
 					result = priceCalc.calculate(sum,piece);
-					PriceArray.calculatedPrice.get(numberOfPages).add(result);
+					arr.calculatedPrice.get(numberOfPages).add(result);
 			}
 	    }
 	}

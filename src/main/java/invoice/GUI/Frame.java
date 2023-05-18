@@ -35,7 +35,7 @@ public class Frame extends JFrame implements ActionListener {
 	public Frame(){
 		
 		pdf = new MainPdf();
-		calc = new PriceCalculator();
+		calc = PriceCalculator.getInstance();
 		dropPanel = new DropPanel();
 		fields = new Fields();
 		button = new Button();
@@ -44,7 +44,6 @@ public class Frame extends JFrame implements ActionListener {
 		button.addActionListener(this);
 		pane = new JOptionPane();
 		d = pane.createDialog((JFrame)null, "Chyba");
-		
 		
 		Image icon = new ImageIcon(getClass().getResource("/images/icon.png")).getImage();
         this.setIconImage(icon);
@@ -133,8 +132,6 @@ public class Frame extends JFrame implements ActionListener {
 		int y = this.getY()+((this.getSize().height-d.getSize().height)/2);
 		Point p = new Point(x, y);
 		d.setLocation(p);
-		System.out.println(d.getSize().width);
-		System.out.println(d.getSize().height);
 		pane.setMessage(message);
 		d.setVisible(true);
 	}
@@ -146,11 +143,7 @@ public class Frame extends JFrame implements ActionListener {
 			Point p = new Point(x, y);
 			d.setTitle(title);
 			d.setLocation(p);
-			System.out.println(d.getSize().width);
-			System.out.println(d.getSize().height);
 			pane.setMessage(message);
 			d.setVisible(true);
 		}
-	
-
 }
