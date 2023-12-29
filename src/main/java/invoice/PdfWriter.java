@@ -19,6 +19,7 @@ public class PdfWriter {
 	static String newPdf;
 	static String oldPdf;
 	static int i = 0;
+	static Excel excel = new Excel();
 	
 	PdfStamper pdfStamper;
 	PriceArray arr = PriceArray.getInstance();
@@ -69,6 +70,9 @@ public class PdfWriter {
 				
 				pageContentByte.endText();
 		    }
+		    
+		    excel.writeToExcel();
+		    excel.clearData();
 		    
 		    pdfStamper.close();	
 		    arr.calculatedPrice.clear();
