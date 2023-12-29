@@ -27,7 +27,7 @@ public class ThermatDLInvoiceParser implements Parser {
 	@Override
 	public void parse(String line, LinkedList<LinkedList<String>> searchTextArr, int numberOfPages) throws IOException {
 		
-		Pattern pattern = Pattern.compile("(\\d{0,4}) (\\d{0,4}) (\\d{0,4},\\d{0,4}) (m|ks|bal) (\\d{0,4},\\d{0,4}) (\\d{0,4},\\d{0,4}) (\\d{0,4},\\d{0,4}) (\\d{0,4},\\d{0,4}) (\\d{0,4},\\d{0,2})(.*)");
+		Pattern pattern = Pattern.compile("(\\d{0,4}) (.*) (\\d{0,4},\\d{0,4}) (m|ks|bal) (\\d{0,4},\\d{0,4}) (\\d{0,4},\\d{0,4}) (\\d{0,4},\\d{0,4}) (\\d{0,4},\\d{0,4}) (\\d{0,4},\\d{0,2})(.*)");
 	    Matcher matcher = pattern.matcher(line);
 	    
 	    if(matcher.find()) {
